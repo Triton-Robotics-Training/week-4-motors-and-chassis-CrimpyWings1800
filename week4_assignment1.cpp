@@ -204,10 +204,17 @@ void remoteRead(bool debug = false){
 
 int main(){
     
-    //SETUP CODE HERE
+    DJIMotor(1, CANHandler::CANBUS_1, M3508, "MOTOR");
+    //creating a motor with ID = 1, on CANBUS_1, of type M3508, named "MOTOR"
 
     while(true){ //main loop
-
+        remoteRead(); // reading fromt he remote at the start of each loop
+        // if switch is up, power mode
+        
+        //if switch mid, speed mode
+        
+        // if switch down, position mode
+        break;
         //MAIN CODE HERE
 
     }
