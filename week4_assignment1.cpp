@@ -202,32 +202,48 @@ void remoteRead(bool debug = false){
 // ONLY ADD CODE BELOW
 // Use prints and getData() for debugging purposes
 
-int main(){
+int main() {
     
-    DJIMotor(1, CANHandler::CANBUS_1, M3508, "MOTOR");
+    DJIMotor motor(1, CANHandler::CANBUS_1, M3508, "MOTOR");
     //creating a motor with ID = 1, on CANBUS_1, of type M3508, named "MOTOR"
     Remote::SwitchState switchState;
+    int motorPower;
+    int motorSpeed;
+    int motorPosition;
 
     while(true){ //main loop
         remoteRead(true); // reading fromt he remote at the start of each loop
         switchState = remote.leftSwitch();
         
-        if (switchState == Remote::SwitchState::UP) {
-            printf("\nUp");
-        }
         // if switch is up, power mode
-        
+        if (switchState == Remote::SwitchState::UP) {
+            //printf("\nUp");
+            motorPower = motor.getData(POWER);
+            printf("\nMOTOR Power: %d", motorPower);
+            motor.setPower(20 * remote.leftX()); // setting power to twenty times the leftX motor
+            motorPower = motor.getData(POWER);
+            printf("\nUpdated MOTOR Power: %d", motorPower);
+        }
         
         //if switch mid, speed mode
         if (switchState == Remote::SwitchState::MID) {
-            printf("\nMid");
+            motorSpeed = motor.getData(SPEED);
+            printf("\nMOTOR Speed: %d", motorSpeed);
+            motor.setSpeed(5 * remote.leftX()); // settign speed to five times leftX value
+            motorSpeed = motor.getData(SPEED);
+            printf("\nUpdated MOTOR Speed: %d", motorSpeed);
         }
         
         // if switch down, position mode
         if (switchState == Remote::SwitchState::DOWN) {
-            printf("\nDown");
+            //printf("\nDown");
+            motorPosition = motor.getData(ANGLE);
+            printf("\nMOTOR Position: %d", motorPosition);
+            motor.setPosition(10 * remote.leftX()); // setting position to ten times leftX value
+            motorPosition = motor.getData(ANGLE);
+            printf("\nUpdated MOTOR Position: %d", motorPosition);
         }
-        
+        s_sendValues();
         break;
         //MAIN CODE HERE
 
