@@ -206,14 +206,28 @@ int main(){
     
     DJIMotor(1, CANHandler::CANBUS_1, M3508, "MOTOR");
     //creating a motor with ID = 1, on CANBUS_1, of type M3508, named "MOTOR"
+    Remote::SwitchState switchState;
 
     while(true){ //main loop
-        remoteRead(); // reading fromt he remote at the start of each loop
+        remoteRead(true); // reading fromt he remote at the start of each loop
+        switchState = remote.leftSwitch();
+        
+        if (switchState == Remote::SwitchState::UP) {
+            printf("\nUp");
+        }
         // if switch is up, power mode
         
+        
         //if switch mid, speed mode
+        if (switchState == Remote::SwitchState::MID) {
+            printf("\nMid");
+        }
         
         // if switch down, position mode
+        if (switchState == Remote::SwitchState::DOWN) {
+            printf("\nDown");
+        }
+        
         break;
         //MAIN CODE HERE
 
