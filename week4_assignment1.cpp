@@ -244,8 +244,5 @@ int main() {
             printf("\nUpdated MOTOR Position: %d", motorPosition);
         }
         motor.s_sendValues();
-        //break;
-        //MAIN CODE HERE
-
     }
 }
