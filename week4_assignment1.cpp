@@ -227,10 +227,10 @@ int main() {
         
         //if switch mid, speed mode
         if (switchState == Remote::SwitchState::MID) {
-            motorSpeed = motor.getData(SPEED);
+            motorSpeed = motor.getData(VELOCITY);
             printf("\nMOTOR Speed: %d", motorSpeed);
             motor.setSpeed(5 * remote.leftX()); // settign speed to five times leftX value
-            motorSpeed = motor.getData(SPEED);
+            motorSpeed = motor.getData(VELOCITY);
             printf("\nUpdated MOTOR Speed: %d", motorSpeed);
         }
         
@@ -243,8 +243,8 @@ int main() {
             motorPosition = motor.getData(ANGLE);
             printf("\nUpdated MOTOR Position: %d", motorPosition);
         }
-        s_sendValues();
-        break;
+        motor.s_sendValues();
+        //break;
         //MAIN CODE HERE
 
     }
